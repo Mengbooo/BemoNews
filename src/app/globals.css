@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&display=swap');
+
+:root {
+  --color-bg: #0a0a0f;
+  --color-green: #00ff88;
+  --color-purple: #a855f7;
+}
+
+.dark {
+  --color-bg: #0a0a0f;
+  --color-green: #00ff88;
+}
+
+.light {
+  --color-bg: #fafafa;
+  --color-green: #00cc6a;
+}
+
+body {
+  @apply bg-cyber-bg text-white font-space;
+}
