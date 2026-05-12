@@ -8,8 +8,9 @@ updated_at: 2026-05-12
 source_path: README.md
 related_docs:
   - 00-overview/bemonews-product-overview.md
-  - 01-planning/core-plans/2026-04-14-ai-daily-news-design.md
-  - 01-planning/core-plans/2026-04-14-bemonews-implementation.md
+  - 01-planning/core-plans/ai-daily-news-design.md
+  - 01-planning/core-plans/bemonews-implementation.md
+  - 01-planning/core-plans/bemonews-technical-architecture.md
   - 02-technical-design/ai-intelligence-design-system-vercel.md
   - 02-technical-design/ai-intelligence-design-system-vercel-rebuild.md
 tags:
@@ -22,7 +23,7 @@ summary: bemoNews docs 目录说明，定义了分层结构、编号规则和文
 ---
 # bemoNews Docs
 
-`docs/` 按“总览 -> 规划 -> 技术设计 -> 资源”的顺序组织，并通过编号保证目录长期稳定。
+`docs/` 按“总览 -> 规划 -> 技术设计 -> 资源 -> 工作记录”的顺序组织，并通过编号保证目录长期稳定。
 
 ## 目录结构
 
@@ -32,6 +33,7 @@ summary: bemoNews docs 目录说明，定义了分层结构、编号规则和文
   - `phase1` ~ `phase4/`：按阶段拆开的专题概览
 - `02-technical-design/`：设计系统、架构规范、实现约束、技术说明
 - `03-assets/`：设计图、截图、静态参考素材
+- `04-worklog/`：阶段进展、里程碑、整理记录、阶段总结
 
 ## 命名规则
 
@@ -58,4 +60,5 @@ summary: bemoNews docs 目录说明，定义了分层结构、编号规则和文
 
 - 新增文档时，先判断它属于哪一层，再放到对应编号目录。
 - 如果只是阶段性草稿，优先放在 `01-planning/`，成熟后再迁移到更稳定的位置。
+- 如果是阶段总结、已完成事项沉淀或工作纪要，放在 `04-worklog/`。
 - 文件移动或重命名后，同步更新 `source_path`、`doc_id` 和 `related_docs`。
