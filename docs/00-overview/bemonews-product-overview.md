@@ -8,8 +8,8 @@ updated_at: 2026-05-12
 source_path: 00-overview/bemonews-product-overview.md
 related_docs:
   - README.md
-  - 01-planning/2026-04-14-ai-daily-news-design.md
-  - 01-planning/2026-04-14-bemonews-implementation.md
+  - 01-planning/core-plans/2026-04-14-ai-daily-news-design.md
+  - 01-planning/core-plans/2026-04-14-bemonews-implementation.md
 tags:
   - bemonews
   - project-foundation

@@ -8,8 +8,8 @@ updated_at: 2026-05-12
 source_path: 02-technical-design/ai-intelligence-design-system-vercel-rebuild.md
 related_docs:
   - README.md
-  - 01-planning/2026-04-14-ai-daily-news-design.md
-  - 01-planning/2026-04-14-bemonews-implementation.md
+  - 01-planning/core-plans/2026-04-14-ai-daily-news-design.md
+  - 01-planning/core-plans/2026-04-14-bemonews-implementation.md
   - 02-technical-design/ai-intelligence-design-system-vercel.md
 tags:
   - technical-design

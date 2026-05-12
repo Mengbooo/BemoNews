@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bemoNews | AI Intelligence Briefing</title>
+    <style>
+      :root {
+        --bg-primary: #0a0a0a;
+        --bg-secondary: #111111;
+        --bg-tertiary: #171717;
+        --bg-elevated: #1c1c1e;
+        --text-primary: #ffffff;
+        --text-secondary: #a1a1aa;
+        --text-muted: #71717a;
+        --border-default: #27272a;
+        --border-subtle: rgba(255, 255, 255, 0.08);
+        --white: #ffffff;
+        --black: #000000;
+        --accent-soft: rgba(255, 255, 255, 0.12);
+        --accent-glow: rgba(255, 255, 255, 0.16);
+        --success: #22c55e;
+        --warning: #f59e0b;
+        --info: #60a5fa;
+        --radius-sm: 10px;
+        --radius-md: 14px;
+        --radius-lg: 20px;
+        --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.32);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        color-scheme: dark;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, "SF Pro Display", "PingFang SC", "Microsoft YaHei",
+          system-ui, sans-serif;
+        background:
+          radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 26%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 20%),
+          var(--bg-primary);
+        color: var(--text-primary);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        background-size: 32px 32px;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 82%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .container {
+        width: min(1200px, calc(100% - 48px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(18px);
+        background: rgba(10, 10, 10, 0.82);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 72px;
+        gap: 24px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      .brand-mark {
+        width: 14px;
+        height: 14px;
+        clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.52));
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        color: var(--text-secondary);
+        font-size: 14px;
+      }
+
+      .nav a:hover,
+      .nav a.active {
+        color: var(--text-primary);
+      }
+
+      .topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .button,
+      .button-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 16px;
+        border-radius: 12px;
+        border: 1px solid var(--border-default);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .button {
+        background: var(--white);
+        color: var(--black);
+        border-color: rgba(255, 255, 255, 0.86);
+      }
+
+      .button-secondary {
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      main {
+        padding: 44px 0 80px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+        gap: 28px;
+        padding: 28px 0 56px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 20px;
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.42);
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.18);
+      }
+
+      h1 {
+        max-width: 10ch;
+        margin: 0;
+        font-size: clamp(48px, 6vw, 64px);
+        line-height: 1.04;
+        letter-spacing: -0.05em;
+      }
+
+      .hero-summary {
+        max-width: 600px;
+        margin: 18px 0 0;
+        color: var(--text-secondary);
+        font-size: 18px;
+        line-height: 1.75;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 22px;
+        color: var(--text-muted);
+        font-size: 13px;
+      }
+
+      .hero-panel {
+        position: relative;
+        overflow: hidden;
+        min-height: 420px;
+        border: 1px solid var(--border-subtle);
+        border-radius: 28px;
+        background:
+          radial-gradient(circle at top right, rgba(255, 255, 255, 0.09), transparent 30%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+          var(--bg-secondary);
+        box-shadow: var(--shadow-md);
+      }
+
+      .hero-panel::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 24px 24px;
+        opacity: 0.55;
+      }
+
+      .hero-panel-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        padding: 28px;
+      }
+
+      .hero-label {
+        color: var(--text-muted);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .orbital-visual {
+        position: relative;
+        height: 230px;
+        margin: 26px 0 22px auto;
+        width: min(290px, 100%);
+      }
+
+      .orbital-card {
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        width: 200px;
+        height: 200px;
+        border-radius: 24px;
+        background:
+          linear-gradient(145deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.02) 26%, rgba(0, 0, 0, 0.82) 64%),
+          #0d0d0d;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        transform: rotate(15deg);
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.04),
+          0 24px 70px rgba(0, 0, 0, 0.55),
+          0 0 46px rgba(255, 255, 255, 0.18);
+      }
+
+      .orbital-card::before {
+        content: "";
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 88px;
+        height: 88px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.72), transparent 68%);
+        filter: blur(8px);
+      }
+
+      .orbital-card::after {
+        content: "";
+        position: absolute;
+        inset: 78px 82px;
+        clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.72));
+      }
+
+      .mini-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .mini-stat {
+        padding: 14px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .mini-stat strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 22px;
+        letter-spacing: -0.03em;
+      }
+
+      .mini-stat span {
+        color: var(--text-muted);
+        font-size: 12px;
+      }
+
+      .section {
+        margin-top: 56px;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 18px;
+      }
+
+      .section-header h2 {
+        margin: 0;
+        font-size: 24px;
+        letter-spacing: -0.03em;
+      }
+
+      .section-link {
+        color: var(--text-secondary);
+        font-size: 14px;
+      }
+
+      .snapshot-grid,
+      .story-grid,
+      .decision-grid,
+      .lower-grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      .snapshot-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .story-grid {
+        grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+      }
+
+      .decision-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .lower-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card {
+        border: 1px solid var(--border-default);
+        border-radius: var(--radius-lg);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 100%), var(--bg-secondary);
+      }
+
+      .card-pad {
+        padding: 22px;
+      }
+
+      .muted {
+        color: var(--text-muted);
+      }
+
+      .snapshot-card h3,
+      .lead-story h3,
+      .signal-card h3,
+      .watch-card h3 {
+        margin: 0;
+        font-size: 16px;
+        letter-spacing: -0.02em;
+      }
+
+      .snapshot-card p,
+      .lead-story p,
+      .signal-card p,
+      .watch-card p,
+      .compact-story p {
+        margin: 10px 0 0;
+        color: var(--text-secondary);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .kicker-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        padding: 0 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text-secondary);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .pill.breaking {
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .lead-story {
+        min-height: 420px;
+      }
+
+      .lead-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(180px, 0.8fr);
+        gap: 18px;
+        align-items: stretch;
+      }
+
+      .lead-story h3 {
+        font-size: 38px;
+        line-height: 1.06;
+        letter-spacing: -0.05em;
+      }
+
+      .lead-points {
+        display: grid;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .lead-point {
+        padding: 14px 16px;
+        border-left: 2px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0 14px 14px 0;
+        color: var(--text-secondary);
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .lead-visual {
+        position: relative;
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background:
+          radial-gradient(circle at center, rgba(255, 255, 255, 0.16), transparent 35%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 90%),
+          #0d0d0e;
+        overflow: hidden;
+      }
+
+      .lead-visual::before,
+      .lead-visual::after {
+        content: "";
+        position: absolute;
+        inset: auto;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 999px;
+      }
+
+      .lead-visual::before {
+        width: 260px;
+        height: 260px;
+        left: 50%;
+        top: 45%;
+        transform: translate(-50%, -50%) rotate(22deg);
+      }
+
+      .lead-visual::after {
+        width: 360px;
+        height: 360px;
+        left: 50%;
+        top: 52%;
+        transform: translate(-50%, -50%) rotate(-18deg);
+        opacity: 0.55;
+      }
+
+      .lead-foot {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 22px;
+        color: var(--text-muted);
+        font-size: 13px;
+      }
+
+      .compact-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .compact-story {
+        display: grid;
+        grid-template-columns: 44px minmax(0, 1fr);
+        gap: 14px;
+        padding: 16px;
+        border: 1px solid var(--border-default);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .compact-mark {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text-primary);
+        font-size: 18px;
+      }
+
+      .compact-story strong {
+        display: block;
+        font-size: 15px;
+        line-height: 1.45;
+      }
+
+      .compact-meta {
+        margin-top: 10px;
+        color: var(--text-muted);
+        font-size: 12px;
+      }
+
+      .signal-card,
+      .watch-card {
+        height: 100%;
+      }
+
+      .signal-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 16px;
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .signal-label::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--info);
+      }
+
+      .signal-card ul,
+      .watch-card ul {
+        margin: 16px 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 12px;
+      }
+
+      .signal-card li,
+      .watch-card li {
+        color: var(--text-secondary);
+        font-size: 14px;
+        line-height: 1.65;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .signal-card li:first-child,
+      .watch-card li:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .watch-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .watch-tile {
+        padding: 16px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .watch-tile strong {
+        display: block;
+        font-size: 14px;
+      }
+
+      .watch-tile span {
+        display: block;
+        margin-top: 8px;
+        color: var(--text-muted);
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .cta {
+        margin-top: 56px;
+        padding: 26px;
+        border: 1px solid var(--border-default);
+        border-radius: 24px;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01)),
+          var(--bg-secondary);
+      }
+
+      .cta-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 460px);
+        gap: 24px;
+        align-items: center;
+      }
+
+      .cta h2 {
+        margin: 0;
+        font-size: 34px;
+        letter-spacing: -0.04em;
+      }
+
+      .cta p {
+        margin: 12px 0 0;
+        color: var(--text-secondary);
+        font-size: 15px;
+        line-height: 1.75;
+      }
+
+      .cta-form {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .cta-form input {
+        width: 100%;
+        min-height: 50px;
+        padding: 0 16px;
+        border: 1px solid var(--border-default);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.02);
+        color: var(--text-primary);
+        outline: none;
+      }
+
+      .footer {
+        padding: 28px 0 12px;
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        color: var(--text-muted);
+        font-size: 13px;
+      }
+
+      @media (max-width: 1100px) {
+        .snapshot-grid,
+        .decision-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .story-grid,
+        .lower-grid,
+        .cta-inner {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .container {
+          width: min(100%, calc(100% - 32px));
+        }
+
+        .topbar-inner {
+          min-height: 64px;
+        }
+
+        .nav {
+          display: none;
+        }
+
+        h1 {
+          max-width: none;
+          font-size: 40px;
+        }
+
+        .hero-summary {
+          font-size: 16px;
+        }
+
+        .mini-stats,
+        .snapshot-grid,
+        .decision-grid,
+        .watch-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .lead-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .lead-story h3 {
+          font-size: 30px;
+        }
+
+        .cta-form {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .footer-inner {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a class="brand" href="#">
+          <span class="brand-mark"></span>
+          <span>AI Intelligence</span>
+        </a>
+        <nav class="nav">
+          <a class="active" href="#">Briefing</a>
+          <a href="#">Signals</a>
+          <a href="#">Companies</a>
+          <a href="#">Research</a>
+          <a href="#">Archive</a>
+        </nav>
+        <div class="topbar-actions">
+          <a class="button-secondary" href="#">Latest issue</a>
+          <a class="button" href="#">Subscribe</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <section class="hero">
+          <div>
+            <div class="eyebrow">AI Intelligence Briefing | May 12, 2026</div>
+            <h1>AI briefing, reduced to what matters.</h1>
+            <p class="hero-summary">
+              保持同样的暗色科技感，但把首页式的信息铺陈收成一份真正能在 4 分钟内读完的简报。
+              今天的主线很清晰：Agent 工作流继续下沉到日常生产，模型能力不再只是看参数，而是看谁真正进入业务闭环。
+            </p>
+            <div class="hero-actions">
+              <a class="button" href="#">Read today&apos;s brief</a>
+              <a class="button-secondary" href="#">Open archive</a>
+            </div>
+            <div class="hero-meta">
+              <span>Updated 14:00 CST</span>
+              <span>18 sources cross-checked</span>
+              <span>Estimated read: 4 min</span>
+              <span>Confidence: High</span>
+            </div>
+          </div>
+
+          <aside class="hero-panel">
+            <div class="hero-panel-content">
+              <div class="hero-label">Today&apos;s Readout</div>
+              <div class="orbital-visual">
+                <div class="orbital-card"></div>
+              </div>
+              <div class="mini-stats">
+                <div class="mini-stat">
+                  <strong>06</strong>
+                  <span>Priority signals</span>
+                </div>
+                <div class="mini-stat">
+                  <strong>03</strong>
+                  <span>Moves worth acting on</span>
+                </div>
+                <div class="mini-stat">
+                  <strong>01</strong>
+                  <span>Consensus narrative</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <h2>Executive Snapshot</h2>
+            <a class="section-link" href="#">View logic →</a>
+          </div>
+          <div class="snapshot-grid">
+            <article class="card snapshot-card">
+              <div class="card-pad">
+                <div class="kicker-row"><span class="pill">Thesis</span></div>
+                <h3>Agent 产品进入“交付结果”竞争，而不是“会不会调用模型”。</h3>
+                <p>从模型能力展示，转向工作流完成率、接管程度和组织内部可追责性。</p>
+              </div>
+            </article>
+            <article class="card snapshot-card">
+              <div class="card-pad">
+                <div class="kicker-row"><span class="pill">Market</span></div>
+                <h3>中小模型的性价比继续压缩通用助手的差异化空间。</h3>
+                <p>“默认够用”正在成为采购逻辑，部署速度与成本控制重新变成核心卖点。</p>
+              </div>
+            </article>
+            <article class="card snapshot-card">
+              <div class="card-pad">
+                <div class="kicker-row"><span class="pill">Watch</span></div>
+                <h3>企业买单的前提，正在从能力强弱改成流程可信。</h3>
+                <p>权限边界、审计日志、失败回退与人类复核，是这轮落地的真正门槛。</p>
+              </div>
+            </article>
+            <article class="card snapshot-card">
+              <div class="card-pad">
+                <div class="kicker-row"><span class="pill">Action</span></div>
+                <h3>如果要做简报产品，首页应更像结论页，而不是内容超市。</h3>
+                <p>先给判断，再给证据和延伸阅读，才能体现“简报”而非“聚合站”。</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <h2>Top Brief</h2>
+            <a class="section-link" href="#">Full issue →</a>
+          </div>
+          <div class="story-grid">
+            <article class="card lead-story">
+              <div class="card-pad">
+                <div class="kicker-row">
+                  <span class="pill breaking">Breaking</span>
+                  <span class="pill">Agent Workflow</span>
+                  <span class="pill">Enterprise</span>
+                </div>
+                <div class="lead-layout">
+                  <div>
+                    <h3>OpenAI 与 Anthropic 共同把“工作助手”推向执行层。</h3>
+                    <p>
+                      今天最值得关注的不是单个模型发布，而是两条路线同时在收敛：
+                      一条是从对话走向任务接管，另一条是从演示能力走向组织内可部署的操作闭环。
+                    </p>
+                    <div class="lead-points">
+                      <div class="lead-point">
+                        工作流编排、上下文保持和工具调用已经成为默认能力，产品差异正在回到交付速度与治理能力。
+                      </div>
+                      <div class="lead-point">
+                        对团队用户而言，最重要的问题不再是“能不能做”，而是“出了问题谁来接住、怎么回溯”。
+                      </div>
+                      <div class="lead-point">
+                        这意味着简报页应该直接回答“今天的变化会影响谁、为什么现在重要、接下来怎么应对”。 
+                      </div>
+                    </div>
+                    <div class="lead-foot">
+                      <span>Cross-verified in 4 source clusters</span>
+                      <span>Updated with product + research signals</span>
+                    </div>
+                  </div>
+                  <div class="lead-visual"></div>
+                </div>
+              </div>
+            </article>
+
+            <aside class="compact-list">
+              <article class="compact-story">
+                <div class="compact-mark">A</div>
+                <div>
+                  <strong>Claude 系列继续强化“可控 Agent”心智，企业对可靠执行的期待被再次抬高。</strong>
+                  <p>不是更会聊天，而是更像一个能在规则里工作的数字同事。</p>
+                  <div class="compact-meta">Signal strength: High · 3 min read</div>
+                </div>
+              </article>
+              <article class="compact-story">
+                <div class="compact-mark">X</div>
+                <div>
+                  <strong>开发者讨论从模型榜单转向成本、吞吐和部署体验。</strong>
+                  <p>买方越来越务实，谁能更稳定地落到流程里，谁就更接近预算。</p>
+                  <div class="compact-meta">Signal strength: Medium · 2 min read</div>
+                </div>
+              </article>
+              <article class="compact-story">
+                <div class="compact-mark">∞</div>
+                <div>
+                  <strong>多源验证正在替代单条热帖，成为判断“是否真重要”的新门槛。</strong>
+                  <p>简报页需要把来源聚合隐藏在后面，把结论和置信度放在前面。</p>
+                  <div class="compact-meta">Editorial note · Confidence layer</div>
+                </div>
+              </article>
+            </aside>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <h2>Decision Signals</h2>
+            <a class="section-link" href="#">Export notes →</a>
+          </div>
+          <div class="decision-grid">
+            <article class="card signal-card">
+              <div class="card-pad">
+                <div class="signal-label">What changed</div>
+                <h3>模型产品的竞争位，从“智能”转到“可交付”。</h3>
+                <p>用户已经不满足于生成内容，他们更在意交付完整任务、缩短人工衔接与复核成本。</p>
+                <ul>
+                  <li>对外传播应减少“能力大全”叙述，转向真实工作流示例。</li>
+                  <li>首页首屏需要给出一句判断，而不是展开所有栏目入口。</li>
+                  <li>简报结构建议采用“结论 → 证据 → 观察名单”的阅读路径。</li>
+                </ul>
+              </div>
+            </article>
+            <article class="card signal-card">
+              <div class="card-pad">
+                <div class="signal-label">Why it matters</div>
+                <h3>信息密度高不再自动等于价值高，筛选逻辑本身才是价值。</h3>
+                <p>用户不缺内容入口，缺的是在短时间内判断什么值得继续追踪、什么可以忽略。</p>
+                <ul>
+                  <li>把栏目数量从 8 个以上压缩到 4 个以内，阅读效率会明显提升。</li>
+                  <li>每个区块只保留一层结论，避免“卡片里再套卡片”的浏览负担。</li>
+                  <li>用置信度、影响面和行动建议替代大面积的列表罗列。</li>
+                </ul>
+              </div>
+            </article>
+            <article class="card signal-card">
+              <div class="card-pad">
+                <div class="signal-label">What to do</div>
+                <h3>把 bemoNews 的“简报感”前置，让首页承担编辑判断而非仓储展示。</h3>
+                <p>这会让产品更接近 premium intelligence product，而不是内容聚合目录。</p>
+                <ul>
+                  <li>首屏直接展示当日主判断和 3 个次级信号。</li>
+                  <li>中段保留一张 lead story 加三个辅助动态即可。</li>
+                  <li>底部用 watchlist 和 next actions 收束，而不是继续扩展栏目。</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <h2>Watchlist & Next Moves</h2>
+            <a class="section-link" href="#">Track all →</a>
+          </div>
+          <div class="lower-grid">
+            <article class="card watch-card">
+              <div class="card-pad">
+                <div class="kicker-row"><span class="pill">Watchlist</span></div>
+                <h3>接下来 72 小时值得持续观察的 4 个变量。</h3>
+                <p>简报页不用把所有新闻都列出，但必须告诉用户接下来该盯什么。</p>
+                <div class="watch-grid">
+                  <div class="watch-tile">
+                    <strong>Agent 定价方式</strong>
+                    <span>观察是否从 seat-based 转向 outcome-based 或 workflow-based。</span>
+                  </div>
+                  <div class="watch-tile">
+                    <strong>企业权限治理</strong>
+                    <span>关注日志、审批、沙盒执行是否被提升到默认叙述层。</span>
+                  </div>
+                  <div class="watch-tile">
+                    <strong>多模型编排</strong>
+                    <span>留意产品是否开始默认用“小模型做路由，大模型做收口”。</span>
+                  </div>
+                  <div class="watch-tile">
+                    <strong>高信号分发</strong>
+                    <span>简报与社区传播链路是否被重新设计成“摘要先行”。</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="card watch-card">
+              <div class="card-pad">
+                <div class="kicker-row"><span class="pill">Next actions</span></div>
+                <h3>如果把这页做成产品页，建议下一步这么迭代。</h3>
+                <p>这部分不是资讯本身，而是给团队的页面设计建议，帮助你继续收敛方向。</p>
+                <ul>
+                  <li>把现有首页的多栏目结构砍到 5 个区块以内，首页先服务“快速判断”。</li>
+                  <li>建立统一的简报卡片模板：结论、原因、影响、行动建议四段式。</li>
+                  <li>为“深度情报”和“快讯”做不同的信息节奏，不要共用同一版式骨架。</li>
+                  <li>后续可以再补一版移动端简报页，让它更像 premium newsletter 而不是网站首页。</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="cta">
+          <div class="cta-inner">
+            <div>
+              <h2>Stay ahead, without reading everything.</h2>
+              <p>
+                这版是“同样视觉风格下的简报页”原型：减少门户感，增强判断感。
+                如果你认这个方向，下一步我可以继续补一版移动端，或直接把它拆成可复用组件规范。
+              </p>
+            </div>
+            <form class="cta-form">
+              <input type="email" value="editor@bemonews.ai" aria-label="Email address" />
+              <button class="button" type="button">Subscribe</button>
+            </form>
+          </div>
+        </section>
+
+        <footer class="footer">
+          <div class="footer-inner">
+            <div class="brand">
+              <span class="brand-mark"></span>
+              <span>AI Intelligence</span>
+            </div>
+            <div>Prototype briefing page for bemoNews · Designed for concise daily intelligence</div>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>

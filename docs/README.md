@@ -8,8 +8,8 @@ updated_at: 2026-05-12
 source_path: README.md
 related_docs:
   - 00-overview/bemonews-product-overview.md
-  - 01-planning/2026-04-14-ai-daily-news-design.md
-  - 01-planning/2026-04-14-bemonews-implementation.md
+  - 01-planning/core-plans/2026-04-14-ai-daily-news-design.md
+  - 01-planning/core-plans/2026-04-14-bemonews-implementation.md
   - 02-technical-design/ai-intelligence-design-system-vercel.md
   - 02-technical-design/ai-intelligence-design-system-vercel-rebuild.md
 tags:
@@ -28,6 +28,8 @@ summary: bemoNews docs 目录说明，定义了分层结构、编号规则和文
 
 - `00-overview/`：产品定位、愿景、范围、核心概念
 - `01-planning/`：需求设计、实施计划、路线图、阶段性方案
+  - `core-plans/`：具体的设计计划、实现计划
+  - `phase1` ~ `phase4/`：按阶段拆开的专题概览
 - `02-technical-design/`：设计系统、架构规范、实现约束、技术说明
 - `03-assets/`：设计图、截图、静态参考素材
 
