@@ -4,18 +4,20 @@ interface BriefSectionProps {
   eyebrow?: string;
   title: string;
   description?: string;
+  linkLabel?: string;
   children: ReactNode;
 }
 
-export function BriefSection({ eyebrow, title, description, children }: BriefSectionProps) {
+export function BriefSection({ eyebrow, title, description, linkLabel = "View all →", children }: BriefSectionProps) {
   return (
-    <section className="space-y-5">
-      <div className="space-y-3">
-        {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
+    <section className="section">
+      <div className="section-header">
         <div>
-          <h2 className="text-2xl font-semibold tracking-tight text-ink-100">{title}</h2>
-          {description ? <p className="mt-2 max-w-3xl text-sm text-ink-400">{description}</p> : null}
+          {eyebrow ? <div className="mb-2 text-xs font-bold uppercase tracking-[0.08em] text-ink-500">{eyebrow}</div> : null}
+          <h2>{title}</h2>
+          {description ? <p className="mt-2 max-w-3xl text-sm leading-6 text-ink-400">{description}</p> : null}
         </div>
+        <a className="section-link" href="#">{linkLabel}</a>
       </div>
       {children}
     </section>

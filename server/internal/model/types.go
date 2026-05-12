@@ -94,6 +94,7 @@ type ProcessedTopic struct {
 	IsCrossSourceConfirmed bool            `json:"isCrossSourceConfirmed"`
 	Status                 string          `json:"status"`
 	DiscardReason          string          `json:"discardReason,omitempty"`
+	Display                *TopicDisplay   `json:"display,omitempty"`
 }
 
 type BriefDraftSection struct {
@@ -121,6 +122,39 @@ type BriefDraft struct {
 	TopicIDs        []string            `json:"topicIds"`
 	Sections        []BriefDraftSection `json:"sections"`
 	Stats           BriefStats          `json:"stats"`
+	Display         *BriefDisplay       `json:"display,omitempty"`
+}
+
+type DisplayTile struct {
+	Title       string `json:"title"`
+	Description string `json:"description"`
+}
+
+type DisplayStat struct {
+	Value string `json:"value"`
+	Label string `json:"label"`
+}
+
+type TopicDisplay struct {
+	Label  string        `json:"label,omitempty"`
+	Pills  []string      `json:"pills,omitempty"`
+	Meta   []string      `json:"meta,omitempty"`
+	Footer []string      `json:"footer,omitempty"`
+	Points []string      `json:"points,omitempty"`
+	Tiles  []DisplayTile `json:"tiles,omitempty"`
+	Icon   string        `json:"icon,omitempty"`
+}
+
+type BriefDisplay struct {
+	Eyebrow    string        `json:"eyebrow,omitempty"`
+	HeroTitle  string        `json:"heroTitle,omitempty"`
+	HeroSummary string       `json:"heroSummary,omitempty"`
+	HeroMeta   []string      `json:"heroMeta,omitempty"`
+	HeroStats  []DisplayStat `json:"heroStats,omitempty"`
+	CTAHeading string        `json:"ctaHeading,omitempty"`
+	CTABody    string        `json:"ctaBody,omitempty"`
+	CTAInput   string        `json:"ctaInput,omitempty"`
+	CTAButton  string        `json:"ctaButton,omitempty"`
 }
 
 type FetchRun struct {

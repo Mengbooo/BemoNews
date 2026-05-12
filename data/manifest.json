@@ -1,29 +1,29 @@
 {
   "version": "1.0",
-  "lastUpdated": "2026-05-12T08:31:00.29406Z",
+  "lastUpdated": "2026-05-12T08:31:00Z",
   "briefs": [
     {
       "date": "2026-05-12",
       "type": "quick",
-      "title": "bemoNews quick brief · 2026-05-12",
-      "generatedAt": "2026-05-12T08:31:00.293624Z",
+      "title": "AI briefing, reduced to what matters.",
+      "generatedAt": "2026-05-12T08:31:00Z",
       "stats": {
-        "inputItems": 0,
-        "selectedTopics": 0,
-        "droppedItems": 0,
-        "crossSourceTopics": 0
+        "inputItems": 18,
+        "selectedTopics": 4,
+        "droppedItems": 14,
+        "crossSourceTopics": 3
       }
     },
     {
       "date": "2026-05-12",
       "type": "full",
-      "title": "bemoNews full brief · 2026-05-12",
-      "generatedAt": "2026-05-12T08:31:00.293627Z",
+      "title": "AI insights, curated daily.",
+      "generatedAt": "2026-05-12T08:31:00Z",
       "stats": {
-        "inputItems": 0,
-        "selectedTopics": 0,
-        "droppedItems": 0,
-        "crossSourceTopics": 0
+        "inputItems": 64,
+        "selectedTopics": 33,
+        "droppedItems": 31,
+        "crossSourceTopics": 12
       }
     }
   ]

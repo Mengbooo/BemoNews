@@ -2,47 +2,67 @@ import type { BriefDraft } from "@/types";
 
 interface HeroSectionProps {
   brief: BriefDraft;
-  meta?: string[];
+  mode?: "quick" | "full";
 }
 
-export function HeroSection({ brief, meta = [] }: HeroSectionProps) {
+export function HeroSection({ brief, mode = brief.type }: HeroSectionProps) {
+  const display = brief.display;
+  const stats = display?.heroStats?.length
+    ? display.heroStats
+    : [
+        { value: String(brief.stats.selectedTopics), label: "Topics selected" },
+        { value: String(brief.stats.crossSourceTopics), label: "Cross-source" },
+        { value: brief.date, label: "Date" },
+      ];
+  const meta = display?.heroMeta ?? [`${brief.stats.selectedTopics} topics`, `${brief.stats.crossSourceTopics} cross-source`, brief.date];
+
   return (
-    <section className="grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(280px,0.7fr)]">
-      <div className="panel p-6 sm:p-8">
-        <span className="eyebrow">{brief.type === "quick" ? "Quick Brief" : "Full Brief"}</span>
-        <h1 className="mt-5 text-4xl font-semibold tracking-tight text-ink-100 sm:text-5xl">
-          {brief.title}
-        </h1>
-        <p className="mt-4 max-w-3xl text-base leading-7 text-ink-300">{brief.summary}</p>
-        <div className="mt-6 flex flex-wrap gap-3">
+    <section className={["hero", mode === "quick" ? "compact" : ""].join(" ")}>
+      <div>
+        <div className="eyebrow">{display?.eyebrow ?? (brief.type === "quick" ? "Quick Brief" : "Full Brief")}</div>
+        <h1 className="hero-title">{display?.heroTitle ?? brief.title}</h1>
+        <p className="hero-summary">{display?.heroSummary ?? brief.summary}</p>
+        <div className="hero-actions">
+          <a className="button" href="#top-stories">{brief.type === "quick" ? "Read today's brief" : "Subscribe"}</a>
+          <a className="button-secondary" href={brief.type === "quick" ? "/2026-05-12/full" : "/2026-05-12/quick"}>
+            {brief.type === "quick" ? "Open full issue" : "Read quick briefing"}
+          </a>
+        </div>
+        <div className="hero-meta">
           {meta.map((item) => (
-            <span key={item} className="rounded-full border border-white/10 px-3 py-1 text-sm text-ink-400">
-              {item}
-            </span>
+            <span key={item}>{item}</span>
           ))}
         </div>
       </div>
 
-      <aside className="panel p-6">
-        <div className="text-sm font-medium text-ink-300">Today&apos;s Readout</div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-          <Metric label="Topics selected" value={String(brief.stats.selectedTopics)} />
-          <Metric label="Input items" value={String(brief.stats.inputItems)} />
-          <Metric label="Cross-source" value={String(brief.stats.crossSourceTopics)} />
-          <Metric label="Date" value={brief.date} mono />
-        </div>
-      </aside>
+      {mode === "quick" ? (
+        <aside className="hero-panel">
+          <div className="hero-panel-content">
+            <div className="hero-label">Today&apos;s Readout</div>
+            <div className="orbital-visual">
+              <div className="orbital-card" />
+            </div>
+            <div className="mini-stats">
+              {stats.map((item) => (
+                <Metric key={`${item.value}-${item.label}`} label={item.label} value={item.value} />
+              ))}
+            </div>
+          </div>
+        </aside>
+      ) : (
+        <aside className="hero-art" aria-label="Brief visual">
+          <div className="hero-card" />
+        </aside>
+      )}
     </section>
   );
 }
 
-function Metric({ label, value, mono = false }: { label: string; value: string; mono?: boolean }) {
+function Metric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-md border border-white/10 bg-white/5 p-4">
-      <div className="text-xs uppercase tracking-[0.2em] text-ink-500">{label}</div>
-      <div className={["mt-3 text-2xl font-semibold text-ink-100", mono ? "font-mono text-lg" : ""].join(" ")}>
-        {value}
-      </div>
+    <div className="mini-stat">
+      <strong>{value}</strong>
+      <span>{label}</span>
     </div>
   );
 }

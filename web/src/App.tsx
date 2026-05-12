@@ -10,7 +10,7 @@ export default function App() {
   return (
     <div className="shell">
       <Topbar />
-      <main className="pt-8">
+      <main className="app-main">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/:date" element={<DatePage />} />

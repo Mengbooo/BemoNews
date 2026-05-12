@@ -1,24 +1,37 @@
 import type { ProcessedTopic } from "@/types";
 
 export function LeadStory({ topic }: { topic: ProcessedTopic }) {
+  const pills = topic.display?.pills ?? ["Breaking", topic.primaryCategory, topic.importance];
+  const points = topic.display?.points ?? [];
+  const meta = topic.display?.meta ?? [new Date(topic.publishedAt).toLocaleDateString(), `${topic.richnessScore.toFixed(1)} richness`];
+
   return (
-    <article className="panel p-6 sm:p-7">
-      <div className="flex flex-wrap items-center gap-3">
-        <span className="eyebrow">Lead Story</span>
-        <span className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.15em] text-ink-500">
-          {topic.importance}
-        </span>
-      </div>
-      <h2 className="mt-5 text-3xl font-semibold tracking-tight text-ink-100">{topic.title}</h2>
-      <p className="mt-4 max-w-3xl text-base leading-7 text-ink-300">
-        {topic.summary || "This lead topic is ready for richer editorial shaping once the summarizer and section mapper are implemented."}
-      </p>
-      <div className="mt-6 flex flex-wrap gap-2 text-xs text-ink-500">
-        {topic.sourceIds.map((sourceID) => (
-          <span key={sourceID} className="rounded-full border border-white/10 px-3 py-1">
-            {sourceID}
-          </span>
-        ))}
+    <article className="card lead-story">
+      <div className="card-pad">
+        <div className="kicker-row">
+          {pills.map((pill, index) => (
+            <span key={pill} className={["pill", index === 0 ? "breaking" : ""].join(" ")}>{pill}</span>
+          ))}
+        </div>
+        <div className="lead-layout">
+          <div>
+            <h3>{topic.title}</h3>
+            <p>{topic.summary}</p>
+            {points.length ? (
+              <div className="lead-points">
+                {points.map((point) => (
+                  <div key={point} className="lead-point">{point}</div>
+                ))}
+              </div>
+            ) : null}
+            <div className={points.length ? "lead-foot" : "meta-line"}>
+              {(points.length ? topic.display?.footer ?? meta : meta).map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          </div>
+          <div className="lead-visual" />
+        </div>
       </div>
     </article>
   );

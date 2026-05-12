@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const apiTarget = process.env.BEMONEWS_API_TARGET ?? "http://localhost:8080";
 
 export default defineConfig({
   plugins: [react()],
@@ -16,7 +17,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/api": {
-        target: "http://localhost:8080",
+        target: apiTarget,
         changeOrigin: true,
       },
     },

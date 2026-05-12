@@ -47,6 +47,7 @@ export interface ProcessedTopic {
   isCrossSourceConfirmed: boolean;
   status: string;
   discardReason?: string;
+  display?: TopicDisplay;
 }
 
 export interface BriefDraftSection {
@@ -74,6 +75,39 @@ export interface BriefDraft {
   topicIds: string[];
   sections: BriefDraftSection[];
   stats: BriefStats;
+  display?: BriefDisplay;
+}
+
+export interface DisplayTile {
+  title: string;
+  description: string;
+}
+
+export interface DisplayStat {
+  value: string;
+  label: string;
+}
+
+export interface TopicDisplay {
+  label?: string;
+  pills?: string[];
+  meta?: string[];
+  footer?: string[];
+  points?: string[];
+  tiles?: DisplayTile[];
+  icon?: string;
+}
+
+export interface BriefDisplay {
+  eyebrow?: string;
+  heroTitle?: string;
+  heroSummary?: string;
+  heroMeta?: string[];
+  heroStats?: DisplayStat[];
+  ctaHeading?: string;
+  ctaBody?: string;
+  ctaInput?: string;
+  ctaButton?: string;
 }
 
 export interface ManifestEntry {

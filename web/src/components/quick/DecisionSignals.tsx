@@ -1,19 +1,27 @@
 import type { ProcessedTopic } from "@/types";
 
-const columns = ["What Changed", "Why It Matters", "What To Do"];
+const columns = ["What changed", "Why it matters", "What to do"];
 
 export function DecisionSignals({ topics }: { topics: ProcessedTopic[] }) {
   return (
-    <div className="grid gap-4 lg:grid-cols-3">
+    <div className="decision-grid">
       {columns.map((label, index) => {
         const topic = topics[index];
+        const points = topic?.display?.points ?? [];
         return (
-          <div key={label} className="panel p-5">
-            <div className="text-sm font-medium text-ink-300">{label}</div>
-            <div className="mt-4 text-lg font-semibold text-ink-100">{topic?.title ?? "Signal placeholder"}</div>
-            <p className="mt-3 text-sm leading-6 text-ink-400">
-              {topic?.summary ?? "The quick brief scaffold is ready to map topic summaries into decision-oriented copy."}
-            </p>
+          <div key={label} className="card signal-card">
+            <div className="card-pad">
+              <div className="signal-label">{label}</div>
+              <h3>{topic?.title ?? label}</h3>
+              <p>{topic?.summary ?? ""}</p>
+              {points.length ? (
+                <ul>
+                  {points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
           </div>
         );
       })}
