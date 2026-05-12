@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-05-12T08:31:00.29406Z",
+  "briefs": [
+    {
+      "date": "2026-05-12",
+      "type": "quick",
+      "title": "bemoNews quick brief · 2026-05-12",
+      "generatedAt": "2026-05-12T08:31:00.293624Z",
+      "stats": {
+        "inputItems": 0,
+        "selectedTopics": 0,
+        "droppedItems": 0,
+        "crossSourceTopics": 0
+      }
+    },
+    {
+      "date": "2026-05-12",
+      "type": "full",
+      "title": "bemoNews full brief · 2026-05-12",
+      "generatedAt": "2026-05-12T08:31:00.293627Z",
+      "stats": {
+        "inputItems": 0,
+        "selectedTopics": 0,
+        "droppedItems": 0,
+        "crossSourceTopics": 0
+      }
+    }
+  ]
+}

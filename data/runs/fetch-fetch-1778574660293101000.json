@@ -1,0 +1,12 @@
+{
+  "id": "fetch-1778574660293101000",
+  "triggerType": "manual",
+  "date": "2026-05-12",
+  "status": "success",
+  "startedAt": "2026-05-12T08:31:00.292775Z",
+  "endedAt": "2026-05-12T08:31:00.293103Z",
+  "sourceCount": 20,
+  "successCount": 20,
+  "failureCount": 0,
+  "collectedItems": 0
+}

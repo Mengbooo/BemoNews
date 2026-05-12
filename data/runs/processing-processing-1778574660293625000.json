@@ -1,0 +1,13 @@
+{
+  "id": "processing-1778574660293625000",
+  "fetchRunId": "fetch-1778574660293101000",
+  "date": "2026-05-12",
+  "status": "success",
+  "startedAt": "2026-05-12T08:31:00.293335Z",
+  "endedAt": "2026-05-12T08:31:00.294206Z",
+  "inputItems": 0,
+  "topicCount": 0,
+  "quickBriefId": "brief-2026-05-12-quick",
+  "fullBriefId": "brief-2026-05-12-full",
+  "crossSourceCount": 0
+}
